@@ -1,0 +1,27 @@
+nav {
+    top: 0;
+    right: 0;
+    text-align: center;
+    transition: all 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav li {
+    display: inline-block;
+    padding: 20px;
+    border-bottom: 1px solid black;
+  }
+  nav li:hover {
+    background-color: gray;
+    padding: 25px;
+  }
+
+  nav li a {
+    font-size: 20px;
+  }

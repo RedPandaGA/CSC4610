@@ -1,0 +1,110 @@
+:root {
+    --color: rgba(
+      152,
+      149,
+      149,
+      0.519
+    ); /* variable for login and sign up box background */
+  }
+  
+  /**styles for the login/signup page*/
+  .login-page {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    font-family: "Poppins", sans-serif;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  .titleL {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .boxL {
+    margin: 10px;
+    height: 500px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 3px solid rgba(0, 0, 0, 0.5);
+    border-right: 3px solid rgb(0, 0, 0);
+    border-bottom: 3px solid rgb(0, 0, 0);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background: var(--color);
+  }
+  
+  .right-section,
+  .left-section {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 1s;
+  }
+  
+  .right-section:hover,
+  .left-section:hover {
+    width: 160%;
+  }
+  
+  .right-section {
+    background: url("../Images/LoginRight.png") center center no-repeat;
+    background-size: cover;
+  }
+  
+  .left-section {
+    background: url("../Images/LoginLeft.png") center center no-repeat;
+    background-size: cover;
+  }
+  
+  .boxL form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1rem;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+  }
+  
+  .boxL form input {
+    color: rgb(255, 255, 255);
+    border: none;
+    outline: none;
+    font-size: 17px;
+    width: 20rem;
+    padding: 10px 20px;
+    letter-spacing: 1px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 5px 15px rgba(35, 193, 75, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 15px;
+  }
+  
+  .boxL form input::placeholder {
+    color: rgb(255, 255, 255);
+  }
+  
+  .boxL h1,
+  .boxL p,
+  .boxL h2 {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    color: rgb(255, 255, 255);
+  }
+  
