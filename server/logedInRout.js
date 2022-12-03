@@ -66,6 +66,15 @@ logedInRout.get('/getPreFlows', async (req, res) => {
     }
 })
 
+logedInRout.get('/getPreSchedules', async (req, res) => {
+    const schedules = await db.getPreSchedules()
+    if(schedules == null){
+        res.status(500).send()
+    } else {
+        res.status(200).send(schedules)
+    }
+})
+
 logedInRout.post('/saveUserSchedule', async (req, res) => {
     let { scheduledata, uid } = req.body 
     const schedule = await db.saveUserSchedule(scheduledata, uid)

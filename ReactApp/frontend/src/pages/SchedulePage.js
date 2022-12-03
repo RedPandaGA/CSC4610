@@ -8,6 +8,7 @@ const courseURL = process.env.NODE_ENV === 'production' ? '/getCoursesByDept' : 
 const getScheduleURL = process.env.NODE_ENV === 'production' ? '/getUserSchedule' : 'http://localhost:3002/api/getUserSchedule'
 const getDeptsURL = process.env.NODE_ENV === 'production' ? '/getDepts' : 'http://localhost:3002/api/getDepts'
 const saveSchedURL = process.env.NODE_ENV === 'production' ? '/saveUserSchedule' : 'http://localhost:3002/api/saveUserSchedule'
+const getPremadeFlowsURL = process.env.NODE_ENV === 'production' ? '/getPreSchedules' : 'http://localhost:3002/api/getPreSchedules'
 
 function SchedulePage(){
     const token = JSON.parse(localStorage.getItem('udata')).token
@@ -20,6 +21,8 @@ function SchedulePage(){
     const [possible, setPossible] = useState([])
     const [toadd, setToAdd] = useState([])
     const [selected, setSelected] = useState([])
+    const [premadescheds, setPremadeScheds] = useState([])
+    const [selectedPremade, setSelectedPremade] = useState([])
 
     async function getUserSchedule(){
         var rows = []
@@ -67,11 +70,29 @@ function SchedulePage(){
         setPossibleDept(possibleDepts)
     }
 
+    async function getPremadeScheds(){
+        await axios({
+            method: 'GET',
+            url: getPremadeFlowsURL,
+            headers: { Authorization: `token ${token}` },
+        })
+        .then((res) => {
+            console.log(res.data.rows)
+            setPremadeScheds(res.data.rows)
+        })
+        .catch((err) => {
+            console.log(err)
+            alert("Couldn't get premade schedules")
+        })
+    }
+
     useEffect(() => {
         //get users courses
         getUserSchedule()
         //get possible dept
         getPossibleDepts()
+        //get premade schedules
+        getPremadeScheds()
     }, [])
 
 
@@ -170,15 +191,27 @@ function SchedulePage(){
         saveUserSchedule()
     }
 
+    const handleSelect = (e) => {
+        setSelectedPremade(e.target.value)
+    }
+
+    function loadPremade(){
+        var rows = selectedPremade.scheduledata
+        rowIndex = 0
+        if(rows.length > 0){
+            rows.forEach((row) => {
+                row.id = rowIndex++
+            })
+        }
+        if(rows.length > 0){
+            setSchedule(rows)
+        }
+    }
+
     const columns = [
         {field: 'dept', headerName: 'Dept', width: 100},
         {field: 'cid', headerName: 'Course ID', width: 100},
-        // {field: 'sect', headerName: 'Section', width: 70 },
         {field: 'hrs', headerName: 'Credit Hours', width: 100 },
-        // {field: 'begin', headerName: 'Begin Time', width: 100 },
-        // {field: 'end', headerName: 'End Time', width: 100 },
-        // {field: 'days', headerName: 'Days', width: 100 },
-        // {field: 'location', headerName: 'Loaction', width: 100 },
         {field: 'prereq', headerName: 'Prerequirement(s)', width: 200}
     ]
 
@@ -227,6 +260,21 @@ function SchedulePage(){
                     <Button variant="contained" onClick={handleAddto}>Add To Schedule</Button>
                     <Button variant="contained" onClick={handleRemove}>Remove Selected</Button>
                     <Button variant="contained" onClick={handleSave}>Save Schedule</Button>
+                </FormControl>
+                <FormControl sx={{s: 1, width: 150}}>
+                    <InputLabel>Premade</InputLabel>
+                    <Select
+                        value={selectedPremade}
+                        label="Course"
+                        onChange={handleSelect}
+                    >
+                    {premadescheds.map((premadesched) => {
+                        return(
+                            <MenuItem value={premadesched}>{premadesched.schedulename}</MenuItem>
+                        )
+                    })}
+                    </Select>
+                    <Button onClick={loadPremade}>LoadPremade</Button>
                 </FormControl>
             </Box>
         </div>

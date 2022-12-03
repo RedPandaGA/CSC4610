@@ -3,6 +3,11 @@ import './navbar.css'
 
 function Navbar(){
 
+    const handleLogout = () => {
+        localStorage.clear()
+        window.location.replace('/')
+    }
+
     return(
         <div classname="navbar">
             <nav>
@@ -20,6 +25,7 @@ function Navbar(){
                         <a href="/Account">Account</a>
                     </li>
                 </ul>
+                <button onClick={handleLogout}>Logout</button>
             </nav>
         </div>
     )

@@ -270,6 +270,20 @@ export async function getPreFlows(){
     return ret
 }
 
+export async function getPreSchedules(){
+    let ret = null
+    await pool.query(`
+        SELECT schedulename, scheduledata FROM preschedules
+    `)
+    .then((res) => {
+        ret = res
+    })
+    .catch((err) => {
+        console.log(err.stack)
+    })
+    return ret
+}
+
 //Gets user data via searching for the id
 export async function getUser(id){
     const { rows } = await pool.query(`
