@@ -7,6 +7,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
 
+const loginURL = process.env.NODE_ENV === 'production' ? '/auth/login' : 'http://localhost:3002/auth/login'
+const createURL = process.env.NODE_ENV === 'production' ? '/auth/createuser' : 'http://localhost:3002/auth/createuser'
 
 function Login(){
     // variables to keep track of user entered password, username, and emails
@@ -21,13 +23,47 @@ function Login(){
 
     async function Logincall(email, password){
         const data = { email: email, password: password }
-        window.location.replace('/home')
+        await axios({
+            method: 'POST',
+            url: loginURL,
+            data: data
+          })
+          .then(res => {
+            if(res.status == 200) {
+              localStorage.setItem('udata', JSON.stringify(res.data.data))
+              window.location.replace('/home')
+            } else {
+              const error = new Error(res.data.message)
+              throw error
+            }
+          })
+          .catch(err => {
+            console.error(err)
+            alert(err.response.data.message)
+          })
       }
       
       // enters user in database if user is not already in database
       async function signupCall(username, email, password){
         const data = { username: username, email: email, password: password }
-
+        axios({
+            method: 'POST',
+            url: createURL,
+            data: data
+          })
+          .then(res => {
+            if(!res.data.successful){
+              console.log(res)
+              alert("Username or email is already in use")
+            } else {
+              console.log(res)
+              alert("User creation successful, please sign in!")
+            }
+          })
+          .catch(err => {
+            console.error(err);
+            alert('Error signing up please try again')
+          })
       }
 
     return(
