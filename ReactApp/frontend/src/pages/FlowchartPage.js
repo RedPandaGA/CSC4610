@@ -7,10 +7,10 @@ import axios from 'axios'
 import Navbar from './navbar'
 
 
-const getScheduleURL = process.env.NODE_ENV === 'production' ? '/getUserSchedule' : 'http://localhost:3002/api/getUserSchedule'
-const saveFlowURL = process.env.NODE_ENV === 'production' ? '/saveUserFlow' : 'http://localhost:3002/api/saveUserFlow'
-const getUserFlowURL = process.env.NODE_ENV === 'production' ? '/getUserFlow' : 'http://localhost:3002/api/getUserFlow'
-const getPremadeFlowsURL = process.env.NODE_ENV === 'production' ? '/getPreFlows' : 'http://localhost:3002/api/getPreFlows'
+const getScheduleURL = process.env.NODE_ENV === 'production' ? '/api/getUserSchedule' : 'http://localhost:3002/api/getUserSchedule'
+const saveFlowURL = process.env.NODE_ENV === 'production' ? '/api/saveUserFlow' : 'http://localhost:3002/api/saveUserFlow'
+const getUserFlowURL = process.env.NODE_ENV === 'production' ? '/api/getUserFlow' : 'http://localhost:3002/api/getUserFlow'
+const getPremadeFlowsURL = process.env.NODE_ENV === 'production' ? '/api/getPreFlows' : 'http://localhost:3002/api/getPreFlows'
 
 function FlowchartPage(){
     const token = JSON.parse(localStorage.getItem('udata')).token

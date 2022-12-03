@@ -4,11 +4,11 @@ import { Box, Select, MenuItem, FormControl, InputLabel, Button } from '@mui/mat
 import axios from 'axios'
 import Navbar from './navbar'
 
-const courseURL = process.env.NODE_ENV === 'production' ? '/getCoursesByDept' : 'http://localhost:3002/api/getCoursesByDept'
-const getScheduleURL = process.env.NODE_ENV === 'production' ? '/getUserSchedule' : 'http://localhost:3002/api/getUserSchedule'
-const getDeptsURL = process.env.NODE_ENV === 'production' ? '/getDepts' : 'http://localhost:3002/api/getDepts'
-const saveSchedURL = process.env.NODE_ENV === 'production' ? '/saveUserSchedule' : 'http://localhost:3002/api/saveUserSchedule'
-const getPremadeFlowsURL = process.env.NODE_ENV === 'production' ? '/getPreSchedules' : 'http://localhost:3002/api/getPreSchedules'
+const courseURL = process.env.NODE_ENV === 'production' ? '/api/getCoursesByDept' : 'http://localhost:3002/api/getCoursesByDept'
+const getScheduleURL = process.env.NODE_ENV === 'production' ? '/api/getUserSchedule' : 'http://localhost:3002/api/getUserSchedule'
+const getDeptsURL = process.env.NODE_ENV === 'production' ? '/api/getDepts' : 'http://localhost:3002/api/getDepts'
+const saveSchedURL = process.env.NODE_ENV === 'production' ? '/api/saveUserSchedule' : 'http://localhost:3002/api/saveUserSchedule'
+const getPremadeFlowsURL = process.env.NODE_ENV === 'production' ? '/api/getPreSchedules' : 'http://localhost:3002/api/getPreSchedules'
 
 function SchedulePage(){
     const token = JSON.parse(localStorage.getItem('udata')).token
