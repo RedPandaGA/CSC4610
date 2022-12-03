@@ -47,9 +47,38 @@ logedInRout.get('/getUserSchedule', async (req, res) => {
     }
 })
 
+logedInRout.get('/getUserFlow', async (req, res) => {
+    const uid = req.query.uid
+    const flow = await db.getUserFlow(uid)
+    if(flow == null){
+        res.status(500).send()
+    } else {
+        res.status(200).send(flow)
+    }
+})
+
+logedInRout.get('/getPreFlows', async (req, res) => {
+    const flows = await db.getPreFlows()
+    if(flows == null){
+        res.status(500).send()
+    } else {
+        res.status(200).send(flows)
+    }
+})
+
 logedInRout.post('/saveUserSchedule', async (req, res) => {
     let { scheduledata, uid } = req.body 
     const schedule = await db.saveUserSchedule(scheduledata, uid)
+    if(schedule == null){
+        res.status(500).send()
+    } else {
+        res.status(200).send()
+    }
+})
+
+logedInRout.post('/saveUserFlow', async (req, res) => {
+    let { flowdata, uid } = req.body 
+    const schedule = await db.saveUserflow(flowdata, uid)
     if(schedule == null){
         res.status(500).send()
     } else {

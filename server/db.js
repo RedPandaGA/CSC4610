@@ -200,11 +200,39 @@ export async function getUserSchedule(uid){
     return ret
 }
 
+export async function getUserFlow(uid){
+    let ret = null
+    await pool.query(`
+        SELECT flowdata FROM userflows WHERE uid = $1
+    `, [uid])
+    .then((res) => {
+        ret = res
+    })
+    .catch((err) => {
+        console.log(err.stack)
+    })
+    return ret
+}
+
 export async function saveUserSchedule(scheduledata, uid){
     let ret = null
     await pool.query(`
         UPDATE userschedules SET scheduledata = $1 WHERE uid = $2
     `, [JSON.stringify(scheduledata), uid])
+    .then((res) => {
+        ret = true
+    })
+    .catch((err) => {
+        console.log(err.stack)
+    })
+    return ret
+}
+
+export async function saveUserflow(flowdata, uid){
+    let ret = null
+    await pool.query(`
+        UPDATE userflows SET flowdata = $1 WHERE uid = $2
+    `, [JSON.stringify(flowdata), uid])
     .then((res) => {
         ret = true
     })
@@ -228,6 +256,20 @@ export async function getDepts(){
     return ret
 }
 
+export async function getPreFlows(){
+    let ret = null
+    await pool.query(`
+        SELECT flowname, flowdata FROM preflows
+    `)
+    .then((res) => {
+        ret = res
+    })
+    .catch((err) => {
+        console.log(err.stack)
+    })
+    return ret
+}
+
 //Gets user data via searching for the id
 export async function getUser(id){
     const { rows } = await pool.query(`
@@ -239,6 +281,7 @@ export async function getUser(id){
   );
   return rows;
 }
+
 
 //Gets user data via searching for the email
 export async function getUserByEmail(email){

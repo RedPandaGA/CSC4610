@@ -9,4 +9,8 @@
   .save__controls button {
     margin-left: 5px;
   }
+
+  .save__controls .note {
+    margin-bottom: 5px;
+  }
   
